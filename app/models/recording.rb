@@ -1,3 +1,3 @@
 class Recording < ApplicationRecord
-  belongs_to :location
+  belongs_to :meteo_station
 end

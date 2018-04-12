@@ -1,3 +1,3 @@
 class Location < ApplicationRecord
-  has_many :recordings
+  has_many :meteo_stations
 end

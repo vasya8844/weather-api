@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161229180820) do
+ActiveRecord::Schema.define(version: 20180410195050) do
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -18,13 +18,20 @@ ActiveRecord::Schema.define(version: 20161229180820) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "meteo_stations", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "location_id", default: 0, null: false
+  end
+
   create_table "recordings", force: :cascade do |t|
-    t.integer  "location_id"
     t.integer  "temp"
     t.string   "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["location_id"], name: "index_recordings_on_location_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "meteo_station_id", default: 0, null: false
+    t.index ["meteo_station_id"], name: "index_recordings_on_meteo_station_id"
   end
 
   create_table "users", force: :cascade do |t|

@@ -7,8 +7,22 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 l = Location.create(name: "New York City")
-l.recordings.create(temp: 32, status: "cloudy")
-l.recordings.create(temp: 34, status: "rainy")
-l.recordings.create(temp: 30, status: "rainy")
-l.recordings.create(temp: 28, status: "cloudy")
-l.recordings.create(temp: 22, status: "sunny")
+
+s = l.meteo_stations.create(name: "Station one")
+s.recordings.create(temp: 34, status: "rainy")
+s.recordings.create(temp: 30, status: "rainy")
+s.recordings.create(temp: 28, status: "cloudy")
+
+m = l.meteo_stations.create(name: "Station two")
+m.recordings.create(temp: 22, status: "sunny")
+
+l = Location.create(name: "Lviv")
+s = l.meteo_stations.create(name: "Station lviv one")
+s.recordings.create(temp: 34, status: "rainy")
+s.recordings.create(temp: 30, status: "rainy")
+s.recordings.create(temp: 28, status: "cloudy")
+
+m = l.meteo_stations.create(name: "Station lviv two")
+m.recordings.create(temp: 22, status: "sunny")
+m.recordings.create(temp: 42, status: "snowy")
+m.recordings.create(temp: 19, status: "cloudy")

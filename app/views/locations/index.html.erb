@@ -7,6 +7,14 @@
 <div>
 <h1>{{ temp }}F</h1>
 <p>{{ location }}</p>
+
+<ul>
+  <li v-for="recording in recordings">
+    {{ recording.attributes.temp }}F
+    {{ recording.attributes.status }}
+  </li>
+</ul>
+
 </div>
 </script>
 
@@ -26,7 +34,7 @@ var state = {
 Vue.component("temperature", {
   template: "#temperature-template",
   data: function() {
-    return {temp: null, location: null};
+    return {temp: null, location: null, recordings: null};
   },
   created: function() {
     this.fetchData();
@@ -40,6 +48,7 @@ Vue.component("temperature", {
         success: function(response) {
           self.temp = response.data.attributes.current.temp;
           self.location = response.data.attributes.name;
+          self.recordings = response.included;
         }
       });
     }
