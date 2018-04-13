@@ -3,7 +3,7 @@ class Api::V1::LocationsController < ApiController
   before_action :set_location
 
   def show
-    render json: @location, include: ['meteo_stations']
+    render json: @location, include: 'meteo_stations.recordings', fields: { meteo_stations: [:name], recordings: [:temp, :status]}
   end
 
   private
