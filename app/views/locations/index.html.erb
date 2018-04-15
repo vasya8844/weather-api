@@ -5,16 +5,18 @@
 
 <script type="text/x-template" id="temperature-template">
 <div>
-<h1>{{ temp }}F</h1>
-<p>{{ location }}</p>
+  <h2>{{ location }}</h2>
 
-<ul>
-  <li v-for="recording in recordings">
-    {{ recording.attributes.temp }}F
-    {{ recording.attributes.status }}
-  </li>
-</ul>
-
+  <div v-for="station in stations">
+    <h3>{{ station.attributes.name }}</h3>
+    <h4>{{ station.attributes.current.temp }}F `{{ station.attributes.current.status }}`</h4>
+    <ul>
+      <li v-for="recording in station.relationships.recordings.data">
+        {{ recording.id }}F
+        {{ recording.type }}
+      </li>
+    </ul>  
+  </div>
 </div>
 </script>
 
@@ -34,7 +36,7 @@ var state = {
 Vue.component("temperature", {
   template: "#temperature-template",
   data: function() {
-    return {temp: null, location: null, recordings: null};
+    return {location: null, stations: null};
   },
   created: function() {
     this.fetchData();
@@ -46,9 +48,8 @@ Vue.component("temperature", {
         url: "/api/v1/locations/1",
         beforeSend: function(xhr) { xhr.setRequestHeader("Authorization", "Bearer " + state.token); },
         success: function(response) {
-          self.temp = response.data.attributes.current.temp;
           self.location = response.data.attributes.name;
-          self.recordings = response.included;
+          self.stations = response.included;
         }
       });
     }

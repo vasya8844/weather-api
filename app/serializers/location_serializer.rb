@@ -1,12 +1,5 @@
 class LocationSerializer < ActiveModel::Serializer
-  attributes :id, :name, :current
+  attributes :id, :name
 
-  has_many :meteo_stations
-
-  def current
-    {
-      temp: 1,
-      status: "rainy"
-    }
-  end
+  has_many :meteo_stations, include: :all
 end

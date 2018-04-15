@@ -1,6 +1,9 @@
 class MeteoStationSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :current
 
-  belongs_to :location
-  has_many :recordings
+  has_many :recordings, include: :all
+
+  def current
+    object.recordings.select(:id, :temp, :status).last
+  end
 end
