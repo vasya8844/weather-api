@@ -50,6 +50,10 @@ Vue.component("temperature", {
         success: function(response) {
           self.location = response.data.attributes.name;
           self.stations = response.included;
+        },
+        error: function(xhr, status, err) {
+          localStorage.removeItem("token");
+          window.location = '/';
         }
       });
     }
